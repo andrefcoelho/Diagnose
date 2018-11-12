@@ -24,10 +24,12 @@ classdef state < handle
             end
             
         end
-        function addTransition(thisObject,trans,next_state)
+       function addTransition(thisObject,trans,next_state)
             thisObject.transitions{end+1} = trans;
             thisObject.next{end+1} = next_state;
-            
+            if not(any(strcmp(thisObject.parent.alphabet,trans)))
+                thisObject.parent.alphabet{end+1}=trans;
+            end
         end
     end
 end

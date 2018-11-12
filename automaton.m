@@ -2,6 +2,7 @@ classdef automaton < hgsetget
     properties
         name;
         states={};
+        alphabet={};
     end
     methods
         function obj = automaton(Name)
