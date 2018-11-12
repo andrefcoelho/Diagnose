@@ -1,4 +1,4 @@
-classdef automaton < matlab.mixin.Copyable%hgsetget
+classdef automaton < hgsetget
     properties
         name;
         states={};
@@ -6,19 +6,12 @@ classdef automaton < matlab.mixin.Copyable%hgsetget
         init_states={};
         marked_states={};
     end
-%     methods(Access = protected)
-%         function cpObj = copyElement(obj)
-%             % Make a shallow copy of all four properties
-%             cpObj = copyElement@matlab.mixin.Copyable(obj);
-%             % Make a deep copy of the DeepCp object
-%             cpObj.DeepObj = copy(obj.DeepObj);
-%         end
-%     end
     methods
         function obj = automaton(Name)
             obj.name = Name;
         end
         function addState(thisObject, varargin)
+            disp(varargin{2})
             if nargin>1
                 st=state(varargin{1:nargin-1});
                 thisObject.states{end+1}=st;

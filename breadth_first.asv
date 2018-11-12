@@ -1,0 +1,14 @@
+function X=breadth_first(G)
+states=G.init_states;
+X=states;
+done=0;
+while not(done)
+    if isempty(states)
+        done=1;
+    end
+    for i=1:length(states)
+        next{i}=G.getState(states{i}).next
+        X=[X next(i)
+    end
+    X=unique([X ]);
+end

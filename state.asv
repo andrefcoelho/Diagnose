@@ -1,4 +1,4 @@
-classdef state < matlab.mixin.Copyable %handle
+classdef state < handle
     properties
         name
         marked=0;
@@ -18,6 +18,7 @@ classdef state < matlab.mixin.Copyable %handle
                         if nargin>4
                             obj.transitions = varargin{4};
                             obj.next = varargin{5};
+                            obj.parent.alphabet{end+1}
                         end
                     end
                 end
@@ -27,7 +28,7 @@ classdef state < matlab.mixin.Copyable %handle
        function addTransition(thisObject,trans,next_state)
             thisObject.transitions{end+1} = trans;
             thisObject.next{end+1} = next_state;
-            if not(ismember(trans,thisObject.parent.alphabet))
+            if not(any(strcmp(thisObject.parent.alphabet,trans)))
                 thisObject.parent.alphabet{end+1}=trans;
             end
         end
