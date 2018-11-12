@@ -12,7 +12,7 @@ while not(done)
         for i=1:length(states)
             next=[next G.getState(states{i}).next];
         end
-        states=setdiff(next,X);
+        states=setdiff(next,X,'stable');
         X=[X states];
 %         X=[X '|' states];
         next={};

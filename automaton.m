@@ -1,4 +1,4 @@
-classdef automaton < matlab.mixin.Copyable%hgsetget
+classdef automaton < matlab.mixin.Copyable %hgsetget
     properties
         name;
         states={};
@@ -6,14 +6,17 @@ classdef automaton < matlab.mixin.Copyable%hgsetget
         init_states={};
         marked_states={};
     end
-%     methods(Access = protected)
-%         function cpObj = copyElement(obj)
-%             % Make a shallow copy of all four properties
-%             cpObj = copyElement@matlab.mixin.Copyable(obj);
-%             % Make a deep copy of the DeepCp object
-%             cpObj.DeepObj = copy(obj.DeepObj);
-%         end
-%     end
+    methods(Access = protected)
+        % Override copyElement method:
+        function cpObj = copyElement(obj)
+            % Make a shallow copy of all four properties
+            cpObj = copyElement@matlab.mixin.Copyable(obj);
+            % Make a deep copy of the DeepCp object
+            for i=1:length(obj.states);
+                cpObj.states{i} = copy(obj.states{i});
+            end
+        end
+    end
     methods
         function obj = automaton(Name)
             obj.name = Name;
@@ -43,23 +46,33 @@ classdef automaton < matlab.mixin.Copyable%hgsetget
             end
             thisObject.states{end}.parent=thisObject;
         end
-        function obj=getState(thisObject, var)
+        
+        function varargout=getState(thisObject, var)
+            %             varargout{1}=[];
             if ischar(var)
                 array_obj=thisObject.states;
-                obj={};
+                varargout{1}={};
                 for i=1:length(array_obj)
                     o=array_obj{i};
                     if o.name==var
-                        obj=thisObject.states{i};
+                        varargout{1}=thisObject.states{i};
                         break;
                     end
                 end
+                if nargout>1
+                    varargout{2}=i;
+                end
             else
-                obj=thisObject.states{var};
+                varargout{1}=thisObject.states{var};
             end
         end
         function array_obj=getAllStates(thisObject)
             array_obj=thisObject.states;
+        end
+        function names=getStateNames(thisObject)
+            for i=1:length(thisObject.states)
+                names{i}=thisObject.states{i}.name;
+            end
         end
         function markState(thisObject, name,marked)
             st=thisObject.getState(name);
@@ -87,7 +100,24 @@ classdef automaton < matlab.mixin.Copyable%hgsetget
                     thisObject.init_states(strcmp(name,thisObject.init_states))=[];
                 end
             end
-            
+        end
+        function removeStates(thisObject, names1)
+            if ischar(names1)==1
+                names{1}=names1;
+            else
+                names=names1;
+            end
+            n=[];
+            for i=1:length(names)
+                [x,ni]=thisObject.getState(char(names(i)));
+                n=[n ni];
+            end
+            thisObject.states(n)=[];
+            thisObject.init_states=setdiff(thisObject.init_states,names);
+            thisObject.marked_states=setdiff(thisObject.marked_states,names);
+            for i=1:length(thisObject.states)
+                thisObject.states{i}.transitions=setdiff(thisObject.states{i}.transitions,names);
+            end
         end
     end
 end

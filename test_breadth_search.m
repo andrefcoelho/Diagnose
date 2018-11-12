@@ -11,4 +11,6 @@ G.addState('X7',1);  %not accessible
 start='X3';
 Xb1=breadth_first(G)  %starting from initial states
 Xb2=breadth_first(G,start) %starting from chosen state
+namesG=getStateNames(G)
 G_acc=accessible(G)
+namesGacc=getStateNames(G_acc)

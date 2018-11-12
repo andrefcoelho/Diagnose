@@ -1,19 +1,23 @@
 clear
 name='G';
-a=automaton(name)
+G=automaton(name)
 marked=0;
 initial=1;
-transitions={'a','b'};
-next={'X1','X2'};
-a.addState('X1',marked,initial,transitions,next)
-a.addState('X2',0)
-a.addState('X3')
-x1=a.getState(1)
-x2=a.getState('X2')
-X=a.getAllStates
-x3=X{3}
+transitions={'a','b','c'};
+next={'X1','X2','X4'};
+G.addState('X1',marked,initial,transitions,next)
+G.addState('X2',1,1)
+G.addState('X3')
+G.addState('X4')
+x1=G.getState(1)
+[x2,n]=G.getState('X2');
+X=G.getAllStates;
+x3=X{3};
 x2.addTransition('Sigmaf','X3')
-a.markState('X3',1)
-a.initialState('X3',0)
-
+G.markState('X3',1)
+G.initialState('X3',1)
+namesG=getStateNames(G)
+G1=copy(G);
+G1.removeStates({'X2' 'X4'})
+namesG1=getStateNames(G1)
 
