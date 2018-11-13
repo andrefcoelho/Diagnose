@@ -70,8 +70,12 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
             array_obj=thisObject.states;
         end
         function names=getStateNames(thisObject)
-            for i=1:length(thisObject.states)
-                names{i}=thisObject.states{i}.name;
+            if isempty(thisObject.states)
+                names={};
+            else
+                for i=1:length(thisObject.states)
+                    names{i}=thisObject.states{i}.name;
+                end
             end
         end
         function markState(thisObject, name,marked)
@@ -121,18 +125,29 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
         end
         function G_inv=invert(thisObject)
             G_inv=copy(thisObject);
+            G_inv.init_states=[];
+            G_inv.marked_states=[];
             for i=1:length(G_inv.states)
                 G_inv.states{i}.transitions=[];
                 G_inv.states{i}.next=[];
+                G_inv.markState(G_inv.states{i}.name,0);
+                G_inv.initialState(G_inv.states{i}.name,0);
             end
             for i=1:length(thisObject.states)
                 name_state=thisObject.states{i}.name;
+                %mark initial states and make marked states initial
+                if ismember(name_state,thisObject.init_states)
+                    G_inv.markState(name_state,1)
+                end
+                if ismember(name_state,thisObject.marked_states)
+                    G_inv.initialState(name_state,1)
+                end
                 trans=thisObject.states{i}.transitions;
                 next=thisObject.states{i}.next;
                 for j=1:length(trans)
                     state_inv=G_inv.getState(char(next(j)));
-                    state_inv.addTransition(trans{j},name_state);                  
-                end    
+                    state_inv.addTransition(trans{j},name_state);
+                end
             end
         end
     end

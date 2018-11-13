@@ -29,3 +29,16 @@ G1.addState('y',0,0,{'a'},{'x'});
 G1.addState('w',0,0,{'a' 'a'},{'z' 'y'});
 G1.addState('z',0,0,{'a'},{'z'});
 Xd=depth_first(G1);
+
+%% Coaccessible part
+clear G2
+G2=automaton('G2');
+G2.addState('X1',0,1,{'a' 'b'},{'X2' 'X1'});
+G2.addState('X2',0,0,{'a' 'b'},{'X3' 'X4'});
+G2.addState('X3',0,0,{'a'},{'X6'});
+G2.addState('X4',0,0,{'a'},{'X5'});
+G2.addState('X5',0,1);
+G2.addState('X6',1);
+namesG2=getStateNames(G2)
+G2coacc=coaccessible(G2)
+namesG2coacc=getStateNames(G2coacc)
