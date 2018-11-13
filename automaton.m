@@ -54,7 +54,7 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
                 varargout{1}={};
                 for i=1:length(array_obj)
                     o=array_obj{i};
-                    if o.name==var
+                    if strcmp(o.name,var)
                         varargout{1}=thisObject.states{i};
                         break;
                     end
