@@ -119,5 +119,8 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
                 thisObject.states{i}.transitions=setdiff(thisObject.states{i}.transitions,names);
             end
         end
+        function obj=invert(thisObject)
+            obj=copy(thisObject);
+        end
     end
 end

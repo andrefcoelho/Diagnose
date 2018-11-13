@@ -6,6 +6,10 @@ classdef state < matlab.mixin.Copyable %handle
         parent={};
         transitions={};
         next={};
+        predecessor;
+        color;
+        d;
+        f;
     end
     methods
         function obj = state(varargin)

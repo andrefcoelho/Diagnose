@@ -21,3 +21,4 @@ G1=copy(G);
 G1.removeStates({'X2' 'X4'})
 namesG1=getStateNames(G1)
 
+G_inv=G.invert;
