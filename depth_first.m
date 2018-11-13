@@ -1,4 +1,4 @@
-function X=depth_first(G)
+function depth_first(G)
 for i=1:length(G.states)
     G.states{i}.color='w';
     G.states{i}.predecessor=[];
@@ -10,7 +10,6 @@ for i=1:length(G.states)
         dfs_visit(G,G.states{i});
     end
 end
-X=0;
 end
 function dfs_visit(G,u)
 global time

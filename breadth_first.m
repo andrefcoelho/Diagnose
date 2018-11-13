@@ -1,31 +1,46 @@
-function X=breadth_first(G,show,init)
-if nargin<3
-    states=G.init_states;
-    if nargin<2
-        show=0;
-    end
+function varargout=breadth_first(G,init)
+if nargin<2
+    start=G.init_states;
 else
-    states{1}=init;
+    start{1}=init;
+end
+X={};
+d_all=[];
+for i=1:length(G.states)
+    u=G.states{i};
+    u.color='w';
+    u.d=inf;
+    u.predecessor=[];
+end
+Q={};
+Q=enqueue(Q,start);
+for i=1:length(start)
+    s=start(i);
+    G.getState(char(s)).color='g';
+    G.getState(char(s)).d=0;
+    G.getState(char(s)).predecessor=[];
+end
+while not(isempty(Q))
+    [s,Q] = dequeue(Q);
+    u=G.getState(s);
+    next=u.next;
+    for i=1:length(next)
+        v=G.getState(char(next(i)));
+        if v.color=='w'
+            v.color='g';
+            v.d=u.d+1;
+            v.predecessor=u.name;
+            Q=enqueue(Q,v.name);
+        end
+    end
+    u.color='b';
+    X=[X u.name];
+    d_all=[d_all u.d];
+end
+if nargout>0
+    varargout{1}=X;
+    if nargout>1
+        varargout{2}=d_all;
+    end
 end
 
-X=states;
-done=0;
-next={};
-d=0;
-while not(done)
-    if not(isempty(states))
-        for i=1:length(states)
-            if show
-            disp(strcat('State:',states(i),' d=',num2str(d)));
-            end
-            next=[next G.getState(states{i}).next];
-        end
-        states=setdiff(next,X,'stable');
-        X=[X states];
-%         X=[X '|' states];
-        next={};
-    else
-        done=1;
-    end
-    d=d+1;
-end
