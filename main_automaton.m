@@ -6,7 +6,7 @@ initial=1;
 transitions={'a','b','c'};
 next={'X1','X2','X4'};
 G.addState('X1',marked,initial,transitions,next)
-G.addState('X2',1,1)
+G.addState('X2',1,1,{'a'},{'X4'})
 G.addState('X3')
 G.addState('X4')
 x1=G.getState(1)
