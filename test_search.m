@@ -68,4 +68,4 @@ G5.addState('e',0,0,{'-' '-'},{'a' 'f'});
 G5.addState('f',0,0,{'-'},{'g'});
 G5.addState('g',0,0,{'-' '-'},{'f' 'h'});
 G5.addState('h',0,0,{'-'},{'h'});
- C = strongly_connected(G5)
+SC = strongly_connected(G5)

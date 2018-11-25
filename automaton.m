@@ -3,6 +3,7 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
         name;
         states={};
         alphabet={};
+        unobservable={};
         init_states={};
         marked_states={};
     end
@@ -21,32 +22,14 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
         function obj = automaton(Name)
             obj.name = Name;
         end
-        function addState(thisObject, varargin)
+        function varargout=addState(thisObject, varargin)
             if nargin>1
-                st=state(varargin{1:nargin-1});
-                thisObject.states{end+1}=st;
-                if nargin>2
-                    if varargin{2}==1
-                        thisObject.marked_states{end+1}=st.name;
-                    end
-                    if nargin>3
-                        if varargin{3}==1
-                            thisObject.init_states{end+1}=st.name;
-                        end
-                        if nargin>5
-                            trans=varargin{4};
-                            for i=1:length(trans)
-                                if not(ismember(trans(i),thisObject.alphabet))
-                                    thisObject.alphabet{end+1}=char(trans(i));
-                                end
-                            end
-                        end
-                    end
-                end
+                st=state(thisObject,varargin{1:nargin-1});
+            end 
+            if nargout>0
+                varargout{1}=st;
             end
-            thisObject.states{end}.parent=thisObject;
         end
-        
         function varargout=getState(thisObject, var)
             %             varargout{1}=[];
             if ischar(var)
