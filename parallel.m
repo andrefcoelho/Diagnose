@@ -1,7 +1,7 @@
-function Gprod = product(G1,G2)
-clear Gprod
-Gprod=automaton(strcat(G1.name,'x',G2.name));
-Gprod.alphabet=union(G1.alphabet,G2.alphabet);
+function Gpar = parallel(G1,G2)
+clear Gpar
+Gpar=automaton(strcat(G1.name,'x',G2.name));
+Gpar.alphabet=union(G1.alphabet,G2.alphabet);
 
 pind=0;
 for i=1:length(G1.states)
@@ -13,7 +13,7 @@ for i=1:length(G1.states)
         sprod=strcat(s1.name,',',s2.name);
         marked=s1.marked*s2.marked;      %check
         initial=s1.initial*s2.initial;
-        Gprod.addState(sprod,marked,initial)
+        Gpar.addState(sprod,marked,initial)
         %defining transitions
         tr1=s1.transitions;
         tr2=s2.transitions;
@@ -26,11 +26,11 @@ for i=1:length(G1.states)
             assert(not(isempty(i1) || isempty(i2)));
             for k=1:length(i1)                       %same length as i2
                 nprod=strcat(char(n1(i1(k))),',',char(n2(i2(k))));
-                Gprod.states{pind}.addTransition(tr{k},nprod)
+                Gpar.states{pind}.addTransition(tr{k},nprod)
             end
         end
     end
 end
-Gprod=accessible(Gprod);
+Gpar=accessible(Gpar);
 end
 
