@@ -6,7 +6,7 @@ G2=automaton('G2');
 G2.addState('A',1,1,{'a','b'},{'B','A'});
 G2.addState('B',1,0,{'d'},{'B'});
 Gprod = product(G1,G2)
-
+Gpar = parallel(G1,G2)  
 
 %% Product - example 2.19 Cassandras
 clear
@@ -24,3 +24,4 @@ G2.addState('Y5',0,0,{'r','c2'},{'Y1','Y6'});
 G2.addState('Y6',0,0,{'r'},{'Y1'});
 
 Gprod = product(G1,G2)
+Gpar = parallel(G1,G2)  %should be the same as Gprod
