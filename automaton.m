@@ -23,12 +23,19 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
             obj.name = Name;
         end
         function varargout=addState(thisObject, varargin)
-            if nargin>1
-                st=state(thisObject,varargin{1:nargin-1});
-            end 
+            s_name=varargin{1};
+            if ismember(s_name,thisObject.getStateNames)
+                warning('State already exists')
+                st=thisObject.getState(s_name);
+            else
+                if nargin>1
+                    st=state(thisObject,varargin{1:nargin-1});
+                end
+            end
             if nargout>0
                 varargout{1}=st;
             end
+            
         end
         function varargout=getState(thisObject, var)
             %             varargout{1}=[];
