@@ -2,7 +2,11 @@ function Xuo=unobsv_reach(G,init)
 if nargin<2
     start=G.init_states;
 else
-    start{1}=init;
+    if ischar(init)
+        start{1}=init;
+    else
+        start=init;
+    end
 end
 X={};
 d_all=[];
