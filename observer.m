@@ -1,6 +1,6 @@
 function Gobs=observer(G)
 %defining state delimiter
-markers=[44 59 47 46 60:63 91:95 123:126]; %possible state delimiters in ASCII
+markers=[44 59 45:47 60:63 91:95 123:126]; %possible state delimiters in ASCII
 i=1;
 while ismember(char(markers(i)),strjoin(G.getStateNames));
     i=i+1;

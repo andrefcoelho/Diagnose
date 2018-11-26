@@ -25,3 +25,7 @@ G2.addState('Y6',0,0,{'r'},{'Y1'});
 
 Gprod = product(G1,G2)
 Gpar = parallel(G1,G2)  %should be the same as Gprod
+
+%% testing marker types
+Gprod1 = product(Gpar,G1)
+Gpar1=product(Gpar,Gprod1)
