@@ -74,7 +74,6 @@ classdef state < matlab.mixin.Copyable %handle
                     end
                 end
             end
-        end
-        
+        end        
     end
 end
