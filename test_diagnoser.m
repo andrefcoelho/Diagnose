@@ -13,8 +13,8 @@ G.addState('9',0,0,{'g'},{'10'});
 G.addState('10',0,0,{'d'},{'3'});
 G.addState('11',0,0,{'g'},{'12'});
 G.addState('12',0,0,{'d'},{'7'});
-Gd=diagnoser(G);
+Gd=diagnoser(G)
 %% Changing Sigma_o and Sigma_f
 Sigma_f={'sf' 't'};
 Sigma_o=setdiff(G.alphabet,Sigma_f);
-Gd=diagnoser(G,Sigma_f,Sigma_o)
+Gd1=diagnoser(G,Sigma_f,Sigma_o)

@@ -19,7 +19,10 @@ else
         i=i+1;
     end
     marker=char(markers(i));
-    
+    if isempty(G.init_states)
+        warning('Automaton has no initial states. Setting initial state to be the first state in the list.')
+        G.init_states{1}=G.states{1}.name;
+    end
     Gobs=automaton('Gobs');
     Gobs.alphabet=setdiff(G.alphabet,uo);
     Next_all={};

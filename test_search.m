@@ -60,12 +60,14 @@ namesG2coacc=getStateNames(G2coacc)
 %% Strongly-connected elements
 clear G5
 G5=automaton('G5');
-G5.addState('a',0,0,{'-'},{'b'});
-G5.addState('b',0,0,{'-' '-' '-'},{'c' 'e' 'f'});
-G5.addState('c',0,0,{'-' '-'},{'d' 'g'});
-G5.addState('d',0,0,{'-' '-'},{'c' 'h'});
-G5.addState('e',0,0,{'-' '-'},{'a' 'f'});
-G5.addState('f',0,0,{'-'},{'g'});
-G5.addState('g',0,0,{'-' '-'},{'f' 'h'});
-G5.addState('h',0,0,{'-'},{'h'});
+G5.addState('A',0,1,{'-'},{'B'});
+G5.addState('B',0,0,{'-' '-' '-'},{'C' 'E' 'F'});
+G5.addState('C',0,0,{'-' '-'},{'D' 'G'});
+G5.addState('D',0,0,{'-' '-'},{'C' 'H'});
+G5.addState('E',0,0,{'-' '-'},{'A' 'F'});
+G5.addState('F',0,0,{'-'},{'G'});
+G5.addState('G',0,0,{'-' '-'},{'F' 'H'});
+G5.addState('H',0,0,{'-'},{'H'});
 SC = strongly_connected(G5)
+%% Test Gdag
+Gdag=dag(G5)
