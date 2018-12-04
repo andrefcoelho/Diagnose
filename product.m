@@ -10,6 +10,7 @@ marker=char(markers(i));
 
 Gprod=automaton(strcat(G1.name,'x',G2.name));
 Gprod.alphabet=union(G1.alphabet,G2.alphabet);
+Gpar.unobservable=union(G1.unobservable,G2.unobservable);
 
 pind=0;
 for i=1:length(G1.states)

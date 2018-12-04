@@ -96,7 +96,7 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
             end
         end
         function removeStates(thisObject, names1)
-            if ischar(names1)==1
+            if ischar(names1)
                 names{1}=names1;
             else
                 names=names1;
@@ -109,9 +109,11 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
             thisObject.states(n)=[];
             thisObject.init_states=setdiff(thisObject.init_states,names);
             thisObject.marked_states=setdiff(thisObject.marked_states,names);
-            for i=1:length(thisObject.states)
-                thisObject.states{i}.transitions=setdiff(thisObject.states{i}.transitions,names);
-            end
+                for i=1:length(thisObject.states)
+                    next=thisObject.states{i}.next;
+                    [thisObject.states{i}.transitions,i_tr]=setdiff(thisObject.states{i}.transitions,names);
+                    thisObject.states{i}.next=next(i_tr);
+                end
         end
         function G_inv=invert(thisObject)
             G_inv=copy(thisObject);

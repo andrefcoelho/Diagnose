@@ -10,6 +10,7 @@ marker=char(markers(i));
 
 Gpar=automaton(strcat(G1.name,'||',G2.name));
 Gpar.alphabet=union(G1.alphabet,G2.alphabet);
+Gpar.unobservable=union(G1.unobservable,G2.unobservable);
 particular1=setdiff(G1.alphabet,G2.alphabet);
 particular2=setdiff(G2.alphabet,G1.alphabet);
 pind=0;
@@ -20,7 +21,7 @@ for i=1:length(G1.states)
         s1=G1.states{i};
         s2=G2.states{j};
         spar=strcat(s1.name,marker,s2.name);
-        marked=s1.marked*s2.marked;      %check
+        marked=s1.marked*s2.marked;      
         initial=s1.initial*s2.initial;
         Gpar.addState(spar,marked,initial)
         %defining transitions
@@ -29,6 +30,9 @@ for i=1:length(G1.states)
         n1=s1.next;
         n2=s2.next;
         %common events
+        if (length(unique(tr1))~=length(tr1) || length(unique(tr2))~=length(tr2))
+            error('This algorithm does not deal with nondeterministic automata')
+        end
         [common,i1,i2] = intersect(tr1,tr2);    %assuming deterministic automata
         if not(isempty(common))
             assert(not(isempty(i1) || isempty(i2)));
