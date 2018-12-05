@@ -69,7 +69,12 @@ classdef automaton < matlab.mixin.Copyable %hgsetget
             end
         end
         function markState(thisObject, name,marked)
-            st=thisObject.getState(name);
+            if isnumeric(name)
+                st=thisObject.states{name};
+                name=st.name;
+            else
+                st=thisObject.getState(name);
+            end
             if not(isempty(st))
                 st.marked=marked;
                 if marked
