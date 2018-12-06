@@ -18,7 +18,7 @@ if iscell(Sigma_o{1})
         GN{i}=rename(Gn,Sigma_o{i},Sigma_f,i);
     end
 else
-    GN{1}=rename(Gn,Sigma_o,Sigma_f);
+    GN{1}=rename(Gn,Sigma_o,Sigma_f,1);
 end
 Gn=GN{1};
 if length(GN)>1

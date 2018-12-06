@@ -1,7 +1,4 @@
 function Gr=rename(G,Sigma_o,Sigma_f,index)
-if nargin<3
-    index=1;
-end
 Gr=copy(G);
 Sigma_uo=setdiff(G.alphabet,Sigma_o);
 Sigma_uo=setdiff(Sigma_uo,Sigma_f);

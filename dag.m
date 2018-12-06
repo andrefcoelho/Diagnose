@@ -23,7 +23,7 @@ for i=1:length(SC)
                 tr_old=st.transitions{is(k)};
                 new_tr=st.transitions{is(k)};
                 while ismember(new_tr,tr_old)
-                    new_tr=strcat(new_tr,'_obs',num2str(rand(1)));
+                    new_tr=strcat(new_tr,'%',num2str(rand(1)));
                     st.transitions{is(k)}=new_tr;
                     G1.alphabet=union(G1.alphabet,new_tr);
                 end
@@ -36,7 +36,7 @@ Gdag=observer(G1,notdag);
 for i=1:length(Gdag.states)
     [Gdag.states{i}.next,iu]=unique(Gdag.states{i}.next);
     Gdag.states{i}.transitions=Gdag.states{i}.transitions(iu);
-    Gdag.states{i}.transitions = strtok(Gdag.states{i}.transitions,'_obs');
+    Gdag.states{i}.transitions = strtok(Gdag.states{i}.transitions,'%');
 end
 Gdag.alphabet=G.alphabet;
 Gdag.unobservable=G.unobservable;
