@@ -12,6 +12,8 @@ for i=1:length(Gr.states)
             new_tr=strcat(st.transitions{j},'R',num2str(index));
             st.transitions{j}=new_tr;
             Gr.alphabet=union(Gr.alphabet,new_tr);
+            Gr.unobservable=union(Gr.unobservable,new_tr);
         end
     end
 end
+Gr.alphabet=setdiff(Gr.alphabet,Sigma_uo);

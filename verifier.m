@@ -2,6 +2,7 @@ function Gv=verifier(G,Sigma_f,Sigma_o)
 Al=create_AL(Sigma_f);
 An=create_An(G.alphabet,Sigma_f);
 Gn=product(G,An);
+Gn.alphabet=setdiff(Gn.alphabet,Sigma_f);
 Gl=parallel(G,Al);
 for i=1:length(Gl.states)
     st=Gl.states{i};
