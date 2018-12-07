@@ -34,9 +34,13 @@ end
 notdag=union(setdiff(G1.alphabet,G1.unobservable),G.unobservable);
 Gdag=observer(G1,notdag);
 for i=1:length(Gdag.states)
-    [Gdag.states{i}.next,iu]=unique(Gdag.states{i}.next);
-    Gdag.states{i}.transitions=Gdag.states{i}.transitions(iu);
     Gdag.states{i}.transitions = strtok(Gdag.states{i}.transitions,'%');
+    tr=Gdag.states{i}.transitions;
+    next=Gdag.states{i}.next;
+    n_tr = cellfun(@(C1,C2) [C1,C2],next,tr,'UniformOutput',false);
+    [~,iu]=unique(n_tr);
+    Gdag.states{i}.next=Gdag.states{i}.next(iu);
+    Gdag.states{i}.transitions=Gdag.states{i}.transitions(iu);
 end
 Gdag.alphabet=G.alphabet;
 Gdag.unobservable=G.unobservable;
