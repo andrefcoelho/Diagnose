@@ -15,10 +15,11 @@ end
 Q={};
 Q=enqueue(Q,start);
 for i=1:length(start)
-    s=start(i);
-    G.getState(char(s)).color='g';
-    G.getState(char(s)).d=0;
-    G.getState(char(s)).predecessor=[];
+    s=start{i};
+    u=G.getState(s);
+    u.color='g';
+    u.d=0;
+    u.predecessor=[];
 end
 while not(isempty(Q))
     [s,Q] = dequeue(Q);
@@ -41,6 +42,9 @@ if nargout>0
     varargout{1}=X;
     if nargout>1
         varargout{2}=d_all;
+        if nargout>2
+            varargout{3}=setdiff(G.getStateNames,X);
+        end
     end
 end
 

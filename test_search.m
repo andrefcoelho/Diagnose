@@ -11,7 +11,7 @@ G.addState('X1',0,1);
 G.addState('X6');
 G.addState('X7',1,0,{'a'},{'X8'});  %not accessible
 G.addState('X8',0,0);  %not accessible
-[Xb1,d1]=breadth_first(G)  %starting from initial states
+[Xb1,d1,Xinf]=breadth_first(G)  %starting from initial states
 start='X3';
 [Xb2,d2]=breadth_first(G,start) %starting from chosen state
 
